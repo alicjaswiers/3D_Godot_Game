@@ -1,7 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://ui.tres" type="Theme" id=3]
+[ext_resource path="res://ScoreLabel.gd" type="Script" id=4]
+[ext_resource path="res://art/House In a Forest Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://default_env.tres" type="Environment" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 30, 1, 30 )
@@ -16,7 +20,7 @@ albedo_color = Color( 0.933333, 0.564706, 0, 1 )
 
 [sub_resource type="Curve3D" id=5]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -12, 0, -8, 0, 0, 0, 0, 0, 0, 13, 0, -8, 0, 0, 0, 0, 0, 0, 13, 0, 19, 0, 0, 0, 0, 0, 0, -12, 0, 19, 0, 0, 0, 0, 0, 0, -11.7888, 0, -11.0634 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -12, 0, -11, 0, 0, 0, 0, 0, 0, 13, 0, -11, 0, 0, 0, 0, 0, 0, 13, 0, 21, 0, 0, 0, 0, 0, 0, -12, 0, 21, 0, 0, 0, 0, 0, 0, -11.7888, 0, -11.0634 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0 )
 }
 
@@ -24,7 +28,10 @@ _data = {
 script = ExtResource( 2 )
 
 [node name="Ground" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94503, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94503, 0 )
+collision_layer = 4
+collision_mask = 0
+input_ray_pickable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )
@@ -35,14 +42,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )
 mesh = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.755431, -0.655229, 0, -0.327614, 0.377715, 0.866025, -0.567445, 0.654222, -0.5, -6.16914, 20.1197, 1.49882 )
-shadow_reverse_cull_face = true
+transform = Transform( -0.755431, -0.655229, 1.84471e-07, 0.327615, -0.377716, 0.866025, -0.567444, 0.654222, 0.5, -0.16914, 26.1197, -0.50118 )
+shadow_enabled = true
+shadow_contact = 10.0
 directional_shadow_split_1 = 0.0
 directional_shadow_split_2 = 0.0
 directional_shadow_split_3 = 0.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.178411, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.894082, 0 )
 
 [node name="CameraPivot" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
@@ -54,38 +62,74 @@ current = true
 size = 19.0
 
 [node name="Cylinders" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, -1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinders"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8484, 6.90876, -10.9617 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8484, 6.90876, -13.9617 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Cylinders"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1516, 6.90876, -10.9617 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1516, 6.90876, -13.9617 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="Cylinders"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1516, 6.90876, 16.0383 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1516, 6.90876, 18.0383 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="MeshInstance4" type="MeshInstance" parent="Cylinders"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8484, 6.90876, 16.0383 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8484, 6.90876, 18.0383 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="SpawnPath" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
 curve = SubResource( 5 )
 
 [node name="SpawnLocation" type="PathFollow" parent="SpawnPath"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -11 )
 rotation_mode = 1
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.7
 autostart = true
 
+[node name="UserInterface" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+margin_left = 32.0
+margin_top = 24.0
+margin_right = 128.0
+margin_bottom = 55.0
+text = "Score: 0"
+script = ExtResource( 4 )
+
+[node name="Retry" type="ColorRect" parent="UserInterface"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0588235, 0.0588235, 0.0588235, 0.168627 )
+
+[node name="Label" type="Label" parent="UserInterface/Retry"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -15.5
+margin_bottom = 15.5
+text = "Press enter to retry"
+align = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 6 )
+
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
